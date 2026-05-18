@@ -71,8 +71,8 @@ function App() {
           <p>Please add a new instruction.</p>
         ) : (
           <ul>
-            {instructions.map((instruction, index) => (
-              <li key={index}>
+            {instructions.map((instruction) => (
+              <li key={instruction.order}>
                 <span>{instruction.order}.</span>
                 <span>{instruction.text}</span>
                 {/* TODO: <button>Move Up</button>
