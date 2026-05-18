@@ -26,9 +26,13 @@ function App() {
     }
   }, [errorMessage])
 
+  /** Input Logic */
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
+
+  /** Instruction List Logic */
 
   const handleAddInstruction = () => {
     if (inputValue.trim() === '') {
@@ -44,6 +48,16 @@ function App() {
       setInputValue('')
       setErrorMessage('')
     }
+  }
+
+  /** Instruction Logic */
+
+  const handleMoveDownDisabled = (order: number) => {
+    return order === instructions.length
+  }
+
+  const handleMoveUpDisabled = (order: number) => {
+    return order === 1
   }
 
   return (
@@ -72,12 +86,20 @@ function App() {
         ) : (
           <ul>
             {instructions.map((instruction) => (
-              <li key={instruction.order}>
+              <li className='instruction' key={instruction.order}>
                 <span>{instruction.order}.</span>
                 <span>{instruction.text}</span>
-                {/* TODO: <button>Move Up</button>
-                <button>Move Down</button>
-                <button>Delete</button> */}
+                <button
+                  disabled={handleMoveDownDisabled(instruction.order)}
+                >
+                  Move Down
+                </button>
+                <button
+                  disabled={handleMoveUpDisabled(instruction.order)}
+                >
+                  Move Up
+                </button>
+                <button>Delete</button>
               </li>
             ))}
           </ul>
