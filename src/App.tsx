@@ -52,11 +52,15 @@ function App() {
 
   /** Instruction Logic */
 
-  const handleMoveDownDisabled = (order: number) => {
+  const handleMoveDown = () => {}
+
+  const handleMoveUp = () => {}
+
+  const handleDownDisabled = (order: number) => {
     return order === instructions.length
   }
 
-  const handleMoveUpDisabled = (order: number) => {
+  const handleUpDisabled = (order: number) => {
     return order === 1
   }
 
@@ -90,12 +94,14 @@ function App() {
                 <span>{instruction.order}.</span>
                 <span>{instruction.text}</span>
                 <button
-                  disabled={handleMoveDownDisabled(instruction.order)}
+                  disabled={handleDownDisabled(instruction.order)}
+                  onClick={handleMoveDown}
                 >
                   Move Down
                 </button>
                 <button
-                  disabled={handleMoveUpDisabled(instruction.order)}
+                  disabled={handleUpDisabled(instruction.order)}
+                  onClick={handleMoveUp}
                 >
                   Move Up
                 </button>
