@@ -31,7 +31,8 @@ function App() {
   const handleAddInstruction = () => {
     if (inputValue.trim() === '') {
       setErrorMessage('Please enter a valid instruction.')
-      // TODO: Add error message for duplicate instruction
+    } else if (instructions.some((instruction) => instruction.text === inputValue.trim())) {
+      setErrorMessage('This instruction already exists.')
     } else {
       const newInstruction: Instruction = {
         order: instructions ? instructions.length + 1 : 1,
