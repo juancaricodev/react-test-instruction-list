@@ -14,7 +14,7 @@ type Instruction = {
 }
 
 function App() {
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [instructions, setInstructions] = useState<Instruction[]>([...instructionsList])
 
@@ -52,7 +52,15 @@ function App() {
 
   /** Instruction Logic */
 
-  const handleMoveDown = () => {}
+  const handleMoveDown = (order: number) => {
+    const newInstructions: Instruction[] = [...instructions]
+    const indexA = newInstructions.findIndex((instruction) => instruction.order === order);
+    const indexB = newInstructions.findIndex((instruction) => instruction.order === order + 1);
+
+    [newInstructions[indexA].text, newInstructions[indexB].text] = [newInstructions[indexB].text, newInstructions[indexA].text]
+
+    setInstructions(newInstructions)
+  }
 
   const handleMoveUp = () => {}
 
@@ -95,7 +103,7 @@ function App() {
                 <span>{instruction.text}</span>
                 <button
                   disabled={handleDownDisabled(instruction.order)}
-                  onClick={handleMoveDown}
+                  onClick={() => handleMoveDown(instruction.order)}
                 >
                   Move Down
                 </button>
