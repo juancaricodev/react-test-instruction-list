@@ -2,12 +2,6 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 
-const instructionsList = [
-  { order: 1, text: 'Instruction 1' },
-  { order: 2, text: 'Instruction 2' },
-  { order: 3, text: 'Instruction 3' }
-]
-
 type Instruction = {
   order: number
   text: string
@@ -16,7 +10,7 @@ type Instruction = {
 function App() {
   const [inputValue, setInputValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
-  const [instructions, setInstructions] = useState<Instruction[]>([...instructionsList])
+  const [instructions, setInstructions] = useState<Instruction[]>([])
 
   useEffect(() => {
     if (errorMessage) {
@@ -62,7 +56,15 @@ function App() {
     setInstructions(newInstructions)
   }
 
-  const handleMoveUp = () => {}
+  const handleMoveUp = (order: number) => {
+    const newInstructions: Instruction[] = [...instructions]
+    const indexA = newInstructions.findIndex((instruction) => instruction.order === order - 1);
+    const indexB = newInstructions.findIndex((instruction) => instruction.order === order);
+
+    [newInstructions[indexA].text, newInstructions[indexB].text] = [newInstructions[indexB].text, newInstructions[indexA].text]
+
+    setInstructions(newInstructions)
+  }
 
   const handleDownDisabled = (order: number) => {
     return order === instructions.length
@@ -109,7 +111,7 @@ function App() {
                 </button>
                 <button
                   disabled={handleUpDisabled(instruction.order)}
-                  onClick={handleMoveUp}
+                  onClick={() => handleMoveUp(instruction.order)}
                 >
                   Move Up
                 </button>
