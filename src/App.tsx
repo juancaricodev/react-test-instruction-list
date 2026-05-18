@@ -4,7 +4,8 @@ import './App.css'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [instructions, setInstructions] = useState<string[]>([])
 
   useEffect(() => {
     if (errorMessage) {
@@ -22,7 +23,7 @@ function App() {
     if (inputValue.trim() === '') {
       setErrorMessage('Please enter a valid instruction.')
     } else {
-      console.log('Instruction added:', inputValue)
+      setInstructions([...instructions, inputValue.trim()])
       setInputValue('')
       setErrorMessage('')
     }
@@ -39,12 +40,25 @@ function App() {
           type="text"
           name="text-input"
           id="text-input"
-          placeholder="Type something..."
+          placeholder="Add a new instruction"
           value={inputValue}
           onChange={handleInputChange}
         />
         <button className='add-instruction__button' onClick={handleAddInstruction}>Add Instruction</button>
         <span className='add-instruction__error-message'>{errorMessage}</span>
+      </section>
+
+      <section className='instruction-list'>
+        <h2>Instructions</h2>
+        {instructions.length === 0 ? (
+          <p>Please add a new instruction.</p>
+        ) : (
+          <ul>
+            {instructions.map((instruction, index) => (
+              <li key={index}>{instruction}</li>
+            ))}
+          </ul>
+        )}
       </section>
     </>
   )
