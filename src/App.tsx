@@ -2,10 +2,21 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 
+const instructionsList = [
+  { order: 1, text: 'Instruction 1' },
+  { order: 2, text: 'Instruction 2' },
+  { order: 3, text: 'Instruction 3' }
+]
+
+type Instruction = {
+  order: number
+  text: string
+}
+
 function App() {
   const [inputValue, setInputValue] = useState('')
   const [errorMessage, setErrorMessage] = useState<string>('')
-  const [instructions, setInstructions] = useState<string[]>([])
+  const [instructions, setInstructions] = useState<Instruction[]>([...instructionsList])
 
   useEffect(() => {
     if (errorMessage) {
@@ -22,8 +33,14 @@ function App() {
   const handleAddInstruction = () => {
     if (inputValue.trim() === '') {
       setErrorMessage('Please enter a valid instruction.')
+      // TODO: Add error message for duplicate instruction
     } else {
-      setInstructions([...instructions, inputValue.trim()])
+      const newInstruction: Instruction = {
+        order: instructions ? instructions.length + 1 : 1,
+        text: inputValue.trim()
+      }
+
+      setInstructions([...instructions, newInstruction])
       setInputValue('')
       setErrorMessage('')
     }
@@ -55,7 +72,13 @@ function App() {
         ) : (
           <ul>
             {instructions.map((instruction, index) => (
-              <li key={index}>{instruction}</li>
+              <li key={index}>
+                <span>{instruction.order}.</span>
+                <span>{instruction.text}</span>
+                {/* TODO: <button>Move Up</button>
+                <button>Move Down</button>
+                <button>Delete</button> */}
+              </li>
             ))}
           </ul>
         )}
