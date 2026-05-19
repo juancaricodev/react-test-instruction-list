@@ -2,9 +2,15 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 
+type Instruction = {
+  order: number
+  text: string
+}
+
 function App() {
-  const [inputValue, setInputValue] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [inputValue, setInputValue] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [instructions, setInstructions] = useState<Instruction[]>([])
 
   useEffect(() => {
     if (errorMessage) {
@@ -14,18 +20,67 @@ function App() {
     }
   }, [errorMessage])
 
+  /** Input Logic */
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
 
+  /** Instruction List Logic */
+
   const handleAddInstruction = () => {
     if (inputValue.trim() === '') {
       setErrorMessage('Please enter a valid instruction.')
+    } else if (instructions.some((instruction) => instruction.text === inputValue.trim())) {
+      setErrorMessage('This instruction already exists.')
     } else {
-      console.log('Instruction added:', inputValue)
+      const newInstruction: Instruction = {
+        order: instructions ? instructions.length + 1 : 1,
+        text: inputValue.trim()
+      }
+
+      setInstructions([...instructions, newInstruction])
       setInputValue('')
       setErrorMessage('')
     }
+  }
+
+  /** Instruction Logic */
+
+  const handleMoveDown = (order: number) => {
+    const newInstructions: Instruction[] = [...instructions]
+    const indexA = newInstructions.findIndex((instruction) => instruction.order === order);
+    const indexB = newInstructions.findIndex((instruction) => instruction.order === order + 1);
+
+    [newInstructions[indexA].text, newInstructions[indexB].text] = [newInstructions[indexB].text, newInstructions[indexA].text]
+
+    setInstructions(newInstructions)
+  }
+
+  const handleMoveUp = (order: number) => {
+    const newInstructions: Instruction[] = [...instructions]
+    const indexA = newInstructions.findIndex((instruction) => instruction.order === order - 1);
+    const indexB = newInstructions.findIndex((instruction) => instruction.order === order);
+
+    [newInstructions[indexA].text, newInstructions[indexB].text] = [newInstructions[indexB].text, newInstructions[indexA].text]
+
+    setInstructions(newInstructions)
+  }
+
+  const handleDelete = (order: number) => {
+    const newInstructions: Instruction[] = instructions
+      .filter((instruction) => instruction.order !== order)
+      .map((instruction, index) => ({ ...instruction, order: index + 1 }))
+
+    setInstructions(newInstructions)
+  }
+
+  const handleDownDisabled = (order: number) => {
+    return order === instructions.length
+  }
+
+  const handleUpDisabled = (order: number) => {
+    return order === 1
   }
 
   return (
@@ -39,12 +94,45 @@ function App() {
           type="text"
           name="text-input"
           id="text-input"
-          placeholder="Type something..."
+          placeholder="Add a new instruction"
           value={inputValue}
           onChange={handleInputChange}
         />
         <button className='add-instruction__button' onClick={handleAddInstruction}>Add Instruction</button>
         <span className='add-instruction__error-message'>{errorMessage}</span>
+      </section>
+
+      <section className='instruction-list'>
+        <h2>Instructions</h2>
+        {instructions.length === 0 ? (
+          <p>Please add a new instruction.</p>
+        ) : (
+          <ul>
+            {instructions.map((instruction) => (
+              <li className='instruction' key={instruction.order}>
+                <span>{instruction.order}.</span>
+                <span>{instruction.text}</span>
+                <button
+                  onClick={() => handleMoveDown(instruction.order)}
+                  disabled={handleDownDisabled(instruction.order)}
+                >
+                  Move Down
+                </button>
+                <button
+                  onClick={() => handleMoveUp(instruction.order)}
+                  disabled={handleUpDisabled(instruction.order)}
+                >
+                  Move Up
+                </button>
+                <button
+                  onClick={() => handleDelete(instruction.order)}
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </>
   )
