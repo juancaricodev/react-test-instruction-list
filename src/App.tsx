@@ -67,6 +67,14 @@ function App() {
     setInstructions(newInstructions)
   }
 
+  const handleDelete = (order: number) => {
+    const newInstructions: Instruction[] = instructions
+      .filter((instruction) => instruction.order !== order)
+      .map((instruction, index) => ({ ...instruction, order: index + 1 }))
+
+    setInstructions(newInstructions)
+  }
+
   const handleDownDisabled = (order: number) => {
     return order === instructions.length
   }
@@ -105,18 +113,22 @@ function App() {
                 <span>{instruction.order}.</span>
                 <span>{instruction.text}</span>
                 <button
-                  disabled={handleDownDisabled(instruction.order)}
                   onClick={() => handleMoveDown(instruction.order)}
+                  disabled={handleDownDisabled(instruction.order)}
                 >
                   Move Down
                 </button>
                 <button
-                  disabled={handleUpDisabled(instruction.order)}
                   onClick={() => handleMoveUp(instruction.order)}
+                  disabled={handleUpDisabled(instruction.order)}
                 >
                   Move Up
                 </button>
-                <button>Delete</button>
+                <button
+                  onClick={() => handleDelete(instruction.order)}
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
