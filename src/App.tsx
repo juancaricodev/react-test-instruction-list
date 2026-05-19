@@ -98,33 +98,41 @@ function App() {
           value={inputValue}
           onChange={handleInputChange}
         />
-        <button className='add-instruction__button' onClick={handleAddInstruction}>Add Instruction</button>
+        <button
+          className='add-instruction__button'
+          onClick={handleAddInstruction}
+        >
+          Add Instruction
+        </button>
         <span className='add-instruction__error-message'>{errorMessage}</span>
       </section>
 
       <section className='instruction-list'>
-        <h2>Instructions</h2>
+        <h2 className='instruction-list__title'>Instructions</h2>
         {instructions.length === 0 ? (
-          <p>Please add a new instruction.</p>
+          <p className='instruction-list__error-message'>Please add a new instruction.</p>
         ) : (
-          <ul>
+          <ul className='instruction-container'>
             {instructions.map((instruction) => (
               <li className='instruction' key={instruction.order}>
-                <span>{instruction.order}.</span>
-                <span>{instruction.text}</span>
+                <span className='instruction__order'>{instruction.order}.</span>
+                <span className='instruction__text'>{instruction.text}</span>
                 <button
+                  className='instruction__button--down'
                   onClick={() => handleMoveDown(instruction.order)}
                   disabled={handleDownDisabled(instruction.order)}
                 >
                   Move Down
                 </button>
                 <button
+                  className='instruction__button--up'
                   onClick={() => handleMoveUp(instruction.order)}
                   disabled={handleUpDisabled(instruction.order)}
                 >
                   Move Up
                 </button>
                 <button
+                  className='instruction__button--delete'
                   onClick={() => handleDelete(instruction.order)}
                 >
                   Delete
