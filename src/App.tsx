@@ -3,12 +3,9 @@ import { useState } from 'react'
 import { CreateInstruction } from './components/CreateInstruction'
 import { InstructionList } from './components/InstructionList'
 
-import './App.css'
+import type { Instruction } from './components/types'
 
-type Instruction = {
-  order: number
-  text: string
-}
+import './App.css'
 
 function App() {
   const [instructions, setInstructions] = useState<Instruction[]>([])
