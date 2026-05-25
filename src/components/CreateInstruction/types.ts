@@ -1,4 +1,4 @@
-import type { Instruction } from '../types'
+import type { Instruction } from '@/types'
 
 export type CreateInstructionProps = {
   instructions: Instruction[];

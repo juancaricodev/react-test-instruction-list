@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { CreateInstruction } from './components/CreateInstruction'
 import { InstructionList } from './components/InstructionList'
 
-import type { Instruction } from './components/types'
+import type { Instruction } from '@/types'
 
 import './App.css'
 

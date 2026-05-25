@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import type { CreateInstructionProps } from './types'
-import type { Instruction } from '../types'
+import type { Instruction } from '@/types'
 
 const CreateInstruction: React.FC<CreateInstructionProps> = ({ instructions, setInstructions }) => {
   const [inputValue, setInputValue] = useState<string>('')
