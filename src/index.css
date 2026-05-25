@@ -1,3 +1,10 @@
-.instruction-list {
-  border: 1px solid #000000;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: #f0f0f0;
+  color : #333333;
+  font-family: sans-serif;
 }
