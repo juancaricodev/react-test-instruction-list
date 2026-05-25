@@ -1,16 +1,16 @@
 .app-container {
-  max-width: 1200px;
   margin: 0 auto;
+  max-width: 100vw;
 }
 
 .app-header {
-  text-align: center;
   margin: 24px 0;
+  text-align: center;
 }
 
 .app-main {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 24px;
 }

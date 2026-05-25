@@ -1,5 +1,42 @@
 .create-instruction {
-  border: 1px solid #000000;
-  border-radius: 4px;
-  padding: 16px;
+  border: 1px solid #aaaaaa;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr auto;
+  padding: 16px 16px 8px;
+
+  .create-instruction__input {
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #333333;
+    outline: none;
+    padding: 8px;
+    width: 50vw;
+  }
+
+  .create-instruction__input:focus {
+    border-color: #4583c0;
+  }
+
+  .create-instruction__button {
+    background-color: #4583c0;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .create-instruction__button:hover {
+    background-color: #2c5d8a;
+  }
+
+  .create-instruction__error-message {
+    color: #ff0000;
+    font-size: 14px;
+    grid-column: 1 / -1;
+  }
 }

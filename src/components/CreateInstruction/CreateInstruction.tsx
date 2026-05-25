@@ -45,7 +45,7 @@ const CreateInstruction: React.FC<CreateInstructionProps> = ({ instructions, set
         type="text"
         name="text-input"
         id="text-input"
-        placeholder="Add a new instruction"
+        placeholder="Add a new instruction."
         value={inputValue}
         onChange={handleInputChange}
       />
@@ -53,7 +53,7 @@ const CreateInstruction: React.FC<CreateInstructionProps> = ({ instructions, set
         className='create-instruction__button'
         onClick={handleAddInstruction}
       >
-        Add Instruction
+        Add
       </button>
       <span className='create-instruction__error-message'>{errorMessage}</span>
     </section>
