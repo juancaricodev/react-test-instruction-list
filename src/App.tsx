@@ -1,30 +1,34 @@
 import { useState } from 'react'
 
-import { CreateInstruction } from './components/CreateInstruction'
-import { InstructionList } from './components/InstructionList'
+import { CreateInstruction } from '@/components/CreateInstruction'
+import { InstructionList } from '@/components/InstructionList'
 
 import type { Instruction } from '@/types'
 
-import './App.css'
+import '@/App.css'
 
 function App() {
   const [instructions, setInstructions] = useState<Instruction[]>([])
 
   return (
-    <>
-      <h1>Welcome to React with TypeScript!</h1>
-      <p>This is a simple React application using TypeScript.</p>
+    <div className="app-container">
+      <header className="app-header">
+        <h1 className="app-header__title">My Instructions</h1>
+        <p className="app-header__description">Add your instructions below.</p>
+      </header>
 
-      <CreateInstruction
-        instructions={instructions}
-        setInstructions={setInstructions}
-      />
+      <main className="app-main">
+        <CreateInstruction
+          instructions={instructions}
+          setInstructions={setInstructions}
+        />
 
-      <InstructionList
-        instructions={instructions}
-        setInstructions={setInstructions}
-      />
-    </>
+        <InstructionList
+          instructions={instructions}
+          setInstructions={setInstructions}
+        />
+      </main>
+    </div>
   )
 }
 

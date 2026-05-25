@@ -1,5 +1,3 @@
-import React from 'react'
-
 import type { InstructionListProps } from './types'
 import type { Instruction } from '@/types'
 
