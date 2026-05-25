@@ -1,6 +1,8 @@
 import type { InstructionListProps } from './types'
 import type { Instruction } from '@/types'
 
+import './InstructionList.css'
+
 const InstructionList: React.FC<InstructionListProps> = ({ instructions, setInstructions }) => {
     const handleMoveDown = (order: number) => {
     const newInstructions: Instruction[] = [...instructions]

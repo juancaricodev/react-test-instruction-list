@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import type { CreateInstructionProps } from './types'
 import type { Instruction } from '@/types'
 
+import './CreateInstructions.css'
+
 const CreateInstruction: React.FC<CreateInstructionProps> = ({ instructions, setInstructions }) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
