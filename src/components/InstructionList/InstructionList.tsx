@@ -44,33 +44,37 @@ const InstructionList: React.FC<InstructionListProps> = ({ instructions, setInst
     <section className='instruction-list'>
       <h2 className='instruction-list__title'>Instructions</h2>
       {instructions.length === 0 ? (
-        <p className='instruction-list__error-message'>Please add a new instruction.</p>
+        <p className='instruction-list__empty-list'>Please add a new instruction.</p>
       ) : (
         <ul className='instruction-container'>
           {instructions.map((instruction) => (
             <li className='instruction' key={instruction.order}>
-              <span className='instruction__order'>{instruction.order}.</span>
-              <span className='instruction__text'>{instruction.text}</span>
-              <button
-                className='instruction__button--down'
-                onClick={() => handleMoveDown(instruction.order)}
-                disabled={handleDownDisabled(instruction.order)}
-              >
-                Move Down
-              </button>
-              <button
-                className='instruction__button--up'
-                onClick={() => handleMoveUp(instruction.order)}
-                disabled={handleUpDisabled(instruction.order)}
-              >
-                Move Up
-              </button>
-              <button
-                className='instruction__button--delete'
-                onClick={() => handleDelete(instruction.order)}
-              >
-                Delete
-              </button>
+              <div className='instruction__text'>
+                <span className='instruction__text-order'>{instruction.order}.</span>
+                <span className='instruction__text-content'>{instruction.text}</span>
+              </div>
+              <div className='instruction__buttons'>
+                <button
+                  className='instruction__buttons--down'
+                  onClick={() => handleMoveDown(instruction.order)}
+                  disabled={handleDownDisabled(instruction.order)}
+                >
+                  ▼
+                </button>
+                <button
+                  className='instruction__buttons--up'
+                  onClick={() => handleMoveUp(instruction.order)}
+                  disabled={handleUpDisabled(instruction.order)}
+                >
+                  ▲
+                </button>
+                <button
+                  className='instruction__buttons--delete'
+                  onClick={() => handleDelete(instruction.order)}
+                >
+                  X
+                </button>
+              </div>
             </li>
           ))}
         </ul>
