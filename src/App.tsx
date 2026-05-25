@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+import { CreateInstruction } from './components/CreateInstruction'
 
 import './App.css'
 
@@ -8,42 +10,7 @@ type Instruction = {
 }
 
 function App() {
-  const [inputValue, setInputValue] = useState<string>('')
-  const [errorMessage, setErrorMessage] = useState<string>('')
   const [instructions, setInstructions] = useState<Instruction[]>([])
-
-  useEffect(() => {
-    if (errorMessage) {
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 3000)
-    }
-  }, [errorMessage])
-
-  /** Input Logic */
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-
-  /** Instruction List Logic */
-
-  const handleAddInstruction = () => {
-    if (inputValue.trim() === '') {
-      setErrorMessage('Please enter a valid instruction.')
-    } else if (instructions.some((instruction) => instruction.text === inputValue.trim())) {
-      setErrorMessage('This instruction already exists.')
-    } else {
-      const newInstruction: Instruction = {
-        order: instructions ? instructions.length + 1 : 1,
-        text: inputValue.trim()
-      }
-
-      setInstructions([...instructions, newInstruction])
-      setInputValue('')
-      setErrorMessage('')
-    }
-  }
 
   /** Instruction Logic */
 
@@ -88,24 +55,7 @@ function App() {
       <h1>Welcome to React with TypeScript!</h1>
       <p>This is a simple React application using TypeScript.</p>
 
-      <section className='add-instruction'>
-        <input
-          className='add-instruction__input'
-          type="text"
-          name="text-input"
-          id="text-input"
-          placeholder="Add a new instruction"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button
-          className='add-instruction__button'
-          onClick={handleAddInstruction}
-        >
-          Add Instruction
-        </button>
-        <span className='add-instruction__error-message'>{errorMessage}</span>
-      </section>
+      <CreateInstruction instructions={instructions} setInstructions={setInstructions} />
 
       <section className='instruction-list'>
         <h2 className='instruction-list__title'>Instructions</h2>
